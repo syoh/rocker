@@ -1,0 +1,11 @@
+{
+	"name": "RStudio",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "dev",
+	
+	"forwardPorts": [8787],
+
+	"workspaceFolder": "/workspaces/rocker",
+
+	"remoteUser": "rstudio"
+}
