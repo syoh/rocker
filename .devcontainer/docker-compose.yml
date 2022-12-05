@@ -13,4 +13,4 @@ services:
       ROOT: 'TRUE'
 
     volumes:
-      - ..:/workspaces/rocker:cached
+      - ..:/home/rstudio/work:cached

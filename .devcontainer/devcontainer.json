@@ -5,7 +5,7 @@
 	
 	"forwardPorts": [8787],
 
-	"workspaceFolder": "/workspaces/rocker",
+	"workspaceFolder": "/home/rstudio/work",
 
 	"remoteUser": "rstudio"
 }
