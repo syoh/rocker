@@ -4,8 +4,36 @@
 	"service": "dev",
 	
 	"forwardPorts": [8787],
+	"portsAttributes": {
+		"8787": {
+			"label": "RStudio",
+			"requireLocalPort": true,
+			"onAutoForward": "ignore"
+		}
+	},
 
 	"workspaceFolder": "/home/rstudio/work",
 
-	"remoteUser": "rstudio"
+	"remoteUser": "rstudio",
+
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": { 
+				"python.defaultInterpreterPath": "/opt/conda/bin/python",
+				"r.rterm.linux": "/opt/conda/bin/radian",
+				"r.bracketedPaste": true,
+				"r.plot.useHttpgd": true
+			},
+			
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"reditorsupport.r",
+				"RDebugger.r-debugger",
+				"quarto.quarto",
+				"tomoki1207.pdf"
+			]
+		}
+	}
 }
