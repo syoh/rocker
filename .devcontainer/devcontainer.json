@@ -3,6 +3,7 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "dev",
 	
+	// rstudio port forwarding
 	"forwardPorts": [8787],
 	"portsAttributes": {
 		"8787": {
@@ -13,13 +14,11 @@
 	},
 
 	"workspaceFolder": "/home/rstudio/work",
-
 	"remoteUser": "rstudio",
 
 	"customizations": {
-		// Configure properties specific to VS Code.
+
 		"vscode": {
-			// Set *default* container specific settings.json values on container create.
 			"settings": { 
 				"python.defaultInterpreterPath": "/opt/conda/bin/python",
 				"r.rterm.linux": "/opt/conda/bin/radian",
@@ -27,7 +26,6 @@
 				"r.plot.useHttpgd": true
 			},
 			
-			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"reditorsupport.r",
 				"RDebugger.r-debugger",
