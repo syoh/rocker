@@ -1,7 +1,8 @@
 {
 	"name": "RStudio",
+
 	"dockerComposeFile": "docker-compose.yml",
-	"service": "dev",
+	"service": "rstudio",
 	
 	// rstudio port forwarding
 	"forwardPorts": [8787],
@@ -25,7 +26,6 @@
 				"r.bracketedPaste": true,
 				"r.plot.useHttpgd": true
 			},
-			
 			"extensions": [
 				"reditorsupport.r",
 				"RDebugger.r-debugger",
