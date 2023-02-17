@@ -1,4 +1,5 @@
-FROM rocker/verse:4.2.2
+FROM ghcr.io/rocker-org/verse:4.2.2
+# FROM rocker/verse:4.2.2
 
 ### install python
 # copy from jupyter stacks
