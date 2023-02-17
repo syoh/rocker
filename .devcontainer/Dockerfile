@@ -16,7 +16,7 @@ RUN curl --silent -L --fail \
 USER rstudio
 
 RUN pip install radian && \
-    install2.r languageserver httpgd && \
+    install2.r languageserver httpgd palmerpenguins && \
     installGithub.r ManuelHentschel/vscDebugger
 
 USER root
