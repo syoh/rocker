@@ -23,7 +23,7 @@ USER rstudio
 
 RUN quarto tools install tinytex && \
     pip install radian && \
-    install2.r languageserver httpgd palmerpenguins && \
+    install2.r rmarkdown languageserver httpgd && \
     installGithub.r ManuelHentschel/vscDebugger
 
 USER root
