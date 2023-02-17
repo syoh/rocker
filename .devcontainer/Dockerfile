@@ -1,4 +1,4 @@
-FROM ghcr.io/rocker-org/verse:4.2.2
+FROM ghcr.io/rocker-org/tidyverse:4.2.2
 # FROM rocker/verse:4.2.2
 
 ### install python
@@ -15,6 +15,8 @@ RUN curl --silent -L --fail \
     apt install -y --no-install-recommends /tmp/quarto.deb
 
 USER rstudio
+
+RUN quarto tools install tinytex
 
 RUN pip install radian && \
     install2.r languageserver httpgd palmerpenguins && \
