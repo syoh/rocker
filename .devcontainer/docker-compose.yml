@@ -10,7 +10,8 @@ services:
 
     environment:
       ROOT: 'TRUE'
-      # PASSWORD: 'asdfasdf'
+      # PASSWORD: 'changeme'
+      PASSWORD: "${PASSWORD}"
 
     volumes:
       - ..:/home/rstudio/work:cached

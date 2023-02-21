@@ -60,7 +60,8 @@ Reference: [installing system packages](https://docs.docker.com/develop/develop-
 In our usage, the password for accessing RStudio is set in this file.
 ```yml
 environment:
-    PASSWORD: 'asdfasdf'
+    PASSWORD: 'changeme'
 ```
-Modifying `asdfasdf` will set a custom password for Rstudio; however, this means
-Environmental variables of [rocker container image are specified](https://rocker-project.org/images/versioned/rstudio.html#environment-variables) 
+Environmental variables of [rocker container image are specified](https://rocker-project.org/images/versioned/rstudio.html#environment-variables).
+
+Modifying `changeme` will set a custom password for Rstudio; however, doing this via the `docker-file.yml` would expose the custom password if your repository is private. My suggestion is to change the password right away when you start a new container: go to RStudio, open a terminal session, type `passwd` to interactively set a new password.
