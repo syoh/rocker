@@ -9,8 +9,9 @@ services:
       dockerfile: Dockerfile
 
     environment:
-      PASSWORD: 'asdfasdf'
-      ROOT: 'TRUE'
+      ROOT: "TRUE"
+      # default password is 'test_password'
+      PASSWORD: "${RSTUDIO_PASSWORD:-test_password}"
 
     volumes:
       - ..:/home/rstudio/work:cached
