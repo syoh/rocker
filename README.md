@@ -1,5 +1,6 @@
 # R and RStudio in Devcontainer
 
+The code in this repository provides a way to start an R development environment along with an RStudio interface. The environment is based on [rocker container images](https://rocker-project.org/images/versioned/rstudio.html).
 
 ## Introduction to Development Containers and Codespaces
 
@@ -9,46 +10,39 @@ If the concept of containers are new to you, I recommend reading the section on 
 
 [Devcontainer in Visual Studio Code](https://code.visualstudio.com/docs/devcontainers/containers) allows VS Code to deploy and connect to a container instance and provide seamless access to software tools inside the container. [GitHub Codespaces](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers) is a way to start a web-based VS Code interface and connect to a container running on GitHub's infrastructure.
 
-Devcontainer specification are given in file `.devcontainer/devcontainer.json`. The container images are [fully customizable](https://code.visualstudio.com/docs/devcontainers/create-dev-container#_path-to-creating-a-dev-container) using `Dockerfile` and `docker-compose.yml` that also live in `.devcontainer` directory.
-
-## Using R and RStudio
-
-### GitHub Codespaces
+Devcontainer specification are given in file `.devcontainer/devcontainer.json`. The container images are [fully customizable](https://code.visualstudio.com/docs/devcontainers/create-dev-container#_path-to-creating-a-dev-container) using `Dockerfile` and `docker-compose.yml` that also live in `.devcontainer` directory. See the section on [What this repository provides](#what-this-repository-provides) for more details on customizing files in this repository.
 
 
+## Using R and RStudio in a container
 
-### Visual Studio Code
+After starting up a [Codespace](https://code.visualstudio.com/docs/remote/codespaces#_getting-started) session or [VS Code devcontainer](https://code.visualstudio.com/docs/devcontainers/tutorial#_get-the-sample) environment with this repository, open the command palette (`Ctrl+Shift+P`), and start typing `Ports: Focus on Ports View`.
 
+In Ports View, you will see an entry that says "RStudio (8787)". Click on the link under "Local Address" to open a browser window to login to your RStudio server!! The default username is `rstudio`, and the default password is `test-password` (See below for [changing the password](#changing-rstudio-password)).
+
+![ports-view-command](images/ports-view.png)
+![ports-view-pane](images/ports-view-open.png)
 
 
 ## Changing RStudio password
 
 A custom password for accessing RStudio can be set with the `PASSWORD` variable in `environment` section of `docker-compose.yml` file. As you can see, the default password is set as `test_password`.
 
-```yml
+```
 environment:
     PASSWORD: "${RSTUDIO_PASSWORD:-test_password}"
 ```
 
-I recommend changing the password to something secure. The password string can be supplied securely in two ways depending on where your container is running.
+I recommend changing the password to something secure. The password string can be supplied securely in two ways depending on where your container is running. If you wanted to set the password as `your-password`,
 
-1. When using Codespaces, add a [secret](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces#adding-a-secret) with `RSTUDIO_PASSWORD` as "Name" and type in your password in "Value" field.
+1. When using Codespaces, add a [secret](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces#adding-a-secret) with  
+    - "Name": `RSTUDIO_PASSWORD` 
+    - "Value": `your-password`
 2. In VS Code, you can create a `.env` file in `.devcontainer` directory and set a variable,  
     ```bash
     RSTUDIO_PASSWORD='your-password'
     ```
-    Doing so will set your password to `your-password`. Note that you should not add `.env` file to your repository.
+    Note that you should not add `.env` file to your repository.
 
-Password are set differently depending on two factors:
-1. Where the container is running: GitHub Codespaces vs. VS Code devcontainer
-2. Privacy setting of the repository: private vs. public
-
-
-"Ports: Focus on Ports View"
-
-Environmental variables of [rocker container image are specified](https://rocker-project.org/images/versioned/rstudio.html#environment-variables).
-
-Modifying `changeme` will set a custom password for Rstudio; however, doing this via the `docker-file.yml` would expose the custom password if your repository is private. My suggestion is to change the password right away when you start a new container: go to RStudio, open a terminal session, type `passwd` to interactively set a new password.
 
 ## What this repository provides
 
@@ -59,15 +53,13 @@ Following files in this repository are the essential pieces for running RStudio 
 * [`.devcontainer/docker-compose.yml`](.devcontainer/docker-compose.yml)
 
 
-### `.devcontainer/devcontainer.json`
+### Devcontainer configuration: `devcontainer.json`
 
-[`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json) is the main configuration file for specifying a devcontainer.
+[`devcontainer.json`](.devcontainer/devcontainer.json) is the main configuration file for specifying a devcontainer. ([documentation on `devcontainer.json`](https://containers.dev/implementors/json_reference/)).
 
-See here for the [documentation on `devcontiner.json`](https://containers.dev/implementors/json_reference/).
+### Development environment: `Dockerfile`
 
-### `.devcontainer/Dockerfile`
-
-[`.devcontainer/Dockerfile`](.devcontainer/Dockerfile) specifies the content of the container image. Modifying this file will customize your devcontainer.
+[`Dockerfile`](.devcontainer/Dockerfile) specifies the content of the container image. Modifying this file will customize the contents of your devcontainer: e.g. system libraries, R, and RStudio.
 
 As the first line suggests, the `Dockerfile` extends a [`tidyverse` image](https://rocker-project.org/images/versioned/rstudio.html) from Rocker project. The additions in the `Dockerfile` are:
 
@@ -92,6 +84,6 @@ RUN apt update && \
 ```
 Reference: [installing system packages](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run) in `Dockerfile`.
 
-### `.devcontainer/docker-compose.yml`
+### Container launch configuration: `docker-compose.yml`
 
-[`.devcontainer/docker-compose.yml`](.devcontainer/docker-compose.yml) specifies container initialization and sets environment variables.
+[`docker-compose.yml`](.devcontainer/docker-compose.yml) specifies container initialization and sets environment variables. One important role of `docker-compose.yml` is setting the password for RStudio access. See above for the section on [changing the password](#changing-rstudio-password).
